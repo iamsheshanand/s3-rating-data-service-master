@@ -1,0 +1,37 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: s3-rating-data-service-service
+spec:
+  selector:
+    app: s3-rating-data-service
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 8083
+      # Port to forward to inside the pod
+      targetPort: 8083
+      # Port accessible outside cluster
+      nodePort: 30083
+  type: LoadBalancer
+
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: s3-rating-data-service-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: s3-rating-data-service
+    spec:
+      containers:
+        - name: s3-rating-data-service
+          image: tsrana1/s3-rating-data-service:v1 
+          ports:
+            - containerPort: 8083
