@@ -34,13 +34,12 @@ spec:
         version: "1.0"
         serving: "true"
         visualize: "true"
-      #annotations:
+        #annotations:
         #visualizer/uses: helloworld-service,guestbook-service,redis
     spec:
       containers:
       - name: s3-rating-data-service
-        image: tsrana1/s3-rating-data-service:v2 
-        
+        image: iamsheshanandjha/s3-rating-data-service:latest
         ports:
         - name: http
           containerPort: 8083
